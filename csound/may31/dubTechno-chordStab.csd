@@ -118,6 +118,33 @@ instr	Reverb
 	;clear	gaSigL, gaSigR	;CLEAR GLOBAL AUDIO VARIABLES
 endin
 
+instr     2313
+  atmp      alpass    gadrysig, 1.7, .1
+  aleft     alpass    atmp, 1.01, .07
+  atmp      alpass    gadrysig, 1.5, .2
+  aright    alpass    atmp, 1.33, .05
+  kdel1     randi     .01, 1, .666
+  kdel1     =  kdel1+.1
+  addl1     delayr    .3
+  afeed1    deltapi   kdel1
+  afeed1    =  afeed1+gifeed*aleft
+            delayw    aleft
+  kdel2     randi     .01,. 95, .777
+  kdel2     =  kdel2+.1
+  addl2     delayr    .3
+  afeed2    deltapi   kdel2
+  afeed2    =  afeed2+gifeed*aright
+            delayw    aright
+  aglobin   =  (afeed1+afeed2)*.05
+  atap1     comb      aglobin, 3.3, gilp1
+  atap2     comb      aglobin, 3.3, gilp2
+  atap3     comb      aglobin, 3.3, gilp3
+  aglobrev  alpass    atap1+atap2+atap3, 2.6, .085
+  aglobrev  tone      aglobrev, giroll
+            outs      aglobrev, aglobrev
+  gadrysig  =  0
+endin
+
 instr Loop
    aL, aR loscil 0.4, 1, 1, 1, 1
    outs aL, aR
