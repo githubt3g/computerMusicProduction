@@ -20,7 +20,7 @@ gkRoomSize, ihRoomSize  FLslider     "Room Size",              0, 1, 0, 23, idFr
                         FLsetVal_i   0, ihHFDamp
                         FLsetVal_i   0.75, ihmix
                         FLpanel_end
-                        FLrun
+                       ;FLrun
 
 
   gaSigL,gaSigR init  0
@@ -35,7 +35,7 @@ gasendL,gasendR	init  0
      ;gkRoomSize init  0.98
        ;gkHFDamp init  0.10
           ;gkmix init  0.90
-    gkReverbWet init  2.50
+    gkReverbWet init  5
      gkDelayWet init  2.50
 
   gifeed    =  2.0
@@ -47,40 +47,52 @@ gasendL,gasendR	init  0
 
 
 instr 1
-aL1 vco2 0.25, cpsmidinn(57)*0.990	; sawtooth waveform
+kc1 = 1
+kc2 = 2
+kvrate = 1
+
+kvdpth line 0, p3, 0.01
+aL1   fmb3 0.4, cpsmidinn(p4-12)*0.990, kc1, kc2, kvdpth, kvrate
+aR1   fmb3 0.4, cpsmidinn(p4-12)*1.010, kc1, kc2, kvdpth, kvrate
+aL2   fmb3 0.4, cpsmidinn(p5-12)*0.990, kc1, kc2, kvdpth, kvrate
+aR2   fmb3 0.4, cpsmidinn(p5-12)*1.010, kc1, kc2, kvdpth, kvrate
+aL3   fmb3 0.4, cpsmidinn(p6-12)*0.990, kc1, kc2, kvdpth, kvrate
+aR3   fmb3 0.4, cpsmidinn(p6-12)*1.010, kc1, kc2, kvdpth, kvrate
+
+/*aL1 vco2 0.25, cpsmidinn(57)*0.990	; sawtooth waveform
 aR1 vco2 0.25, cpsmidinn(57)*1.010	; sawtooth waveform
 aL2 vco2 0.25, cpsmidinn(60)*0.990	; sawtooth waveform
 aR2 vco2 0.25, cpsmidinn(60)*1.010	; sawtooth waveform
 aL3 vco2 0.25, cpsmidinn(64)*0.990	; sawtooth waveform
-aR3 vco2 0.25, cpsmidinn(64)*1.010	; sawtooth waveform
-aLin=0.5*(aL1+aL2+aL3)
-aRin=0.5*(aR1+aR2+aR3)
-kfe  expseg 1000, p3*0.9, 1800, p3*0.1, 2700
+aR3 vco2 0.25, cpsmidinn(64)*1.010	; sawtooth waveform*/
+aLin=0.33*(aL1+aL2+aL3)
+aRin=0.33*(aR1+aR2+aR3)
+kfe  expseg 1500, p3*0.9, 1800, p3*0.1, 1800
 kres line .1, p3, .99	;increase resonance
-aLout moogladder aLin, kfe, 0*kres
-aRout moogladder aRin, kfe, 0*kres
+aLout moogladder aLin, kfe, kres
+aRout moogladder aRin, kfe, kres
    aL atone aLout, 880
    aR atone aRout, 880
 	gasendL	=	gasendL+aL*gkDelayWet
 	gasendR	=	gasendR+aR*gkDelayWet
         gaSigL  = gaSigL + aL*gkReverbWet
         gaSigR  = gaSigR + aR*gkReverbWet
-     outs 0.3*(aL+aR), 0.3*(aL-aR)
+     outs 0.3*aL, 0.3*aR
 endin
 
 instr     Delay  
-  atapA     delay     gasendL*0.9,  3 /16 * 240/127
-  atapB     delay     gasendR*0.8,  6 /16 * 240/127
-  atapC     delay     gasendL*0.7,  9.5 /16 * 240/127
-  atapD     delay     gasendR*0.6, 12 /16 * 240/127
-  atapE     delay     gasendR*0.6, 12 /16 * 240/127
-  atapF     delay     gasendL*0.9, 15 /16 * 240/127
-  atapG     delay     gasendR*0.8, 18.5 /16 * 240/127
-  ;atapH     delay     gasendL*0.7, 21 /16 * 240/127
-  ;atapI     delay     gasendR*0.6, 24.5 /16 * 240/127
-  ;atapJ     delay     gasendR*0.6, 27 /16 * 240/127
-  ;atapK     delay     gasendR*0.6, 27 /16 * 240/127
-  aL = 0.5*(atapA+atapC+atapE+atapF);+atapH+atapJ)
+  atapA     delay     gasendL*0.9,  3 /16 * 240/120
+  atapB     delay     gasendR*0.8,  6 /16 * 240/120
+  atapC     delay     gasendL*0.7,  9.667 /16 * 240/120
+  atapD     delay     gasendR*0.6, 12.333 /16 * 240/120
+  atapE     delay     gasendR*0.5, 12.333 /16 * 240/120
+  atapF     delay     gasendL*0.4, 15 /16 * 240/120
+  atapG     delay     gasendR*0.3, 18 /16 * 240/120
+  atapH     delay     gasendL*0.3, 18 /16 * 240/120
+  ;atapI     delay     gasendR*0.6, 24.5 /16 * 240/120
+  ;atapJ     delay     gasendR*0.6, 27 /16 * 240/120
+  ;atapK     delay     gasendR*0.6, 27 /16 * 240/120
+  aL = 0.5*(atapA+atapC+atapE+atapF+atapH);+atapJ)
   aR = 0.5*(atapB+atapD+atapE+atapG);+atapI+atapJ) 
             outs   aL, aR
         gaSigL  = gaSigL + aL*gkDelayWet
@@ -127,55 +139,46 @@ instr     Reverb
   gaSigR  =  0
 endin
 
-instr Loop
+instr Beat
    aL, aR loscil 0.2, 1, 1, 1, 1
    outs aL, aR
+        gaSigL  = gaSigL + aL*gkDelayWet*0.3
+        gaSigR  = gaSigR + aR*gkDelayWet*0.3 
 endin
 
-instr Loop2
+instr Flute
    aLin, aRin loscil 0.3, 1, 2, 1, 1
    aL atone aLin, 440
    aR atone aRin, 440
-   outs aL, aR
+   outs 0.33*aL, 0.33*aR
 endin
 
-instr Loop3
+instr Dubout
    aL, aR loscil 0.2, 1, 3, 1, 1
-   outs aL, aR
+   outs 0.66*aL, 0.66*aR
 endin
 
 </CsInstruments>
 <CsScore>
 f1 0 0 1 "loop.wav"  0 0 0
 f2 0 0 1 "loop2.wav" 0 0 0
-f3 0 0 1 "loop3.wav" 0 0 0
-a0 0 32
+f3 0 0 1 "loop3-1.wav" 0 0 0
+;a0 0 160
 t0 127
 {9 counter
-i1 [32+ 0+32*$counter] 0.20 $counter
-i1 [32+ 8+32*$counter] 0.20
-i1 [32+16+32*$counter] 0.20
-i1 [32+24+32*$counter] 0.20
+i1 [32+ 0+32*$counter] 0.20 57 60 64
+i1 [32+ 8+32*$counter] 0.20 56 59 63
+i1 [32+16+32*$counter] 0.20 57 60 64
+i1 [32+24+32*$counter] 0.20 59 62 66
 }
-i"Delay"             [ 0*32] 32 0.25
-i"Delay"             [ 1*32] 32 0.50
-i"Delay"             [ 2*32] 32 0.75
-i"Delay"             [ 3*32] 32 1.00
-i"Delay"             [ 4*32] 32 0.25
-i"Delay"             [ 5*32] 32 0.50
-i"Delay"             [ 6*32] 32 0.75
-i"Delay"             [ 7*32] 32 1.00
-i"Delay"             [ 8*32] 32 0.25
-i"Delay"             [ 9*32] 32 0.50
-i"Delay"             [10*32] 32 0.75
-i"Delay"             [11*32] 14.4 1.00
-i"freeverb"         0   [11.4*32]
-i"Loop"           0      [3*32]
-i"Loop"       [4*32]     [4*32]
-i"Loop"      [10*32]     [1*32]
-i"Loop2"      [5*32]     [6*32]
-i"Loop3"      [9*32]        12.7
-i"Loop3"     [11*32]        12.7
+i"Delay"          0   [11*32]
+i"freeverb"       0   [11.4*32]
+i"Beat"           0      [3*32]
+i"Beat"       [4*32]     [4*32]
+i"Beat"      [10*32]     [1*32]
+i"Flute"      [5*32]     [6*32]
+i"Dubout"      [9*32]        11.3120408163265306
+i"Dubout"     [11*32]        11.3120408163265306
 e
 </CsScore>
 </CsoundSynthesizer>
