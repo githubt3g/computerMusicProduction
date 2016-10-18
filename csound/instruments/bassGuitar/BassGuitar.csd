@@ -133,17 +133,17 @@ instr 3
 endin
 
 
-instr 777
-        gaBeatL, gaBeatR  loscil  1, 1, 777, 1, 1, 0, 148027
-        gaBeatL=0.5*gaBeatL
-        gaBeatR=0.5*gaBeatR
-                outs   gaBeatL,gaBeatR
-endin
+;instr 777
+;        gaBeatL, gaBeatR  loscil  1, 1, 777, 1, 1, 0, 148027
+;        gaBeatL=0.5*gaBeatL
+;        gaBeatR=0.5*gaBeatR
+;                outs   gaBeatL,gaBeatR
+;endin
 
 
 instr 900
   outs gasigL, gasigR
-  fout "recording.wav", 4, gasigL, gasigR, gaBeatL, gaBeatR
+  fout "recording.wav", 4, gasigL, gasigR;, gaBeatL, gaBeatR
   clear gasigL
   clear gasigR
 endin
@@ -156,11 +156,11 @@ endin
 </CsInstruments>
 
 <CsScore>
-f0 360
-f777 0 0 1 "beat143.wav" 0 0 0 
+f0 3600
+;f777 0 0 1 "beat143.wav" 0 0 0 
 
-i777 0 -1
-i900 0 -1
+;i777 0 -1
+;i900 0 -1
 
 </CsScore>
 
