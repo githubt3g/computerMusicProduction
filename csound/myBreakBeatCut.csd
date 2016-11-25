@@ -65,7 +65,7 @@ ih		 	FLbox  	"Stored File", 		1,       2,    12,    70,      25,   30,  225
 			FLsetVal_i	2, 	ihrepeats
 			FLsetVal_i	1, 	ihstutspd
 			FLsetVal_i	1, 	ihstutchnc
-			FLsetVal_i	40, 	ihBPM
+			FLsetVal_i	130, 	ihBPM
 			FLsetVal_i	1, 	ihinput
 			FLsetVal_i	0.5, 	ihDry
 			FLsetVal_i	0.5, 	ihWet
@@ -144,26 +144,26 @@ ih		 	FLbox  	"generated once every bar.                                    ", 	
 ;END OF FLTK INTERFACE CODE;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 instr	1	
-	if	gkOnOff=0	then	;IF On/Off SWITCH IS SET TO 'OFF'...
-		turnoff			;TURN THIS INSTRUMENT OFF
-	endif				;END OF CONDITIONAL BRANCHING
+	;if	gkOnOff=0	then	;IF On/Off SWITCH IS SET TO 'OFF'...
+	;	turnoff			;TURN THIS INSTRUMENT OFF
+	;endif				;END OF CONDITIONAL BRANCHING
 	
 	inumbar		=	2		;NUMBER OF BARS IN THE INPUT SOUND FILE
 	kBarPS		=	gkBPM/240	;DERIVE BARS PER SECOND
 	
-	kSwitch	changed		gkBPM, gkrepeats, gkphrase, gkstutspd, gkstutchnc, gkbarlen, gksubdiv, gkinput, gkfltdiv	;GENERATE A MOMENTARY '1' PULSE IN OUTPUT 'kSwitch' IF ANY OF THE SCANNED INPUT VARIABLES CHANGE. (OUTPUT 'kSwitch' IS NORMALLY ZERO)
-	if	kSwitch=1	then		;IF I-RATE VARIABLE CHANGE TRIGGER IS '1'...
-		reinit	UPDATE			;BEGIN A REINITIALISATION PASS FROM LABEL 'UPDATE'
-	endif
-	UPDATE:
+	;kSwitch	changed		gkBPM, gkrepeats, gkphrase, gkstutspd, gkstutchnc, gkbarlen, gksubdiv, gkinput, gkfltdiv	;GENERATE A MOMENTARY '1' PULSE IN OUTPUT 'kSwitch' IF ANY OF THE SCANNED INPUT VARIABLES CHANGE. (OUTPUT 'kSwitch' IS NORMALLY ZERO)
+	;if	kSwitch=1	then		;IF I-RATE VARIABLE CHANGE TRIGGER IS '1'...
+	;	reinit	UPDATE			;BEGIN A REINITIALISATION PASS FROM LABEL 'UPDATE'
+	;endif
+	;/home/tom/Desktop/musicProduction/musicradar-minimal-house-samples/130bpm/beat/130_001.wavUPDATE:
 	
-	if		gkinput==1 then			;IF 'INPUT' SWITCH IS SET TO 'STORED FILE' THEN IMPLEMENT THE NEXT LINE OF CODE
+	;if		gkinput==1 then			;IF 'INPUT' SWITCH IS SET TO 'STORED FILE' THEN IMPLEMENT THE NEXT LINE OF CODE
 		ifn		=	1		;FUNCTION TABLE
 		aptr		phasor	kBarPS/inumbar	;CREATE A MOVING PHASE VALUE
 		ain		tablei	aptr*nsamp(ifn), ifn	;READ AUDIO FROM TABLE
-	else						;IF 'INPUT' SWITCH IS NOT SET TO 'STORED FILE' THEN IMPLEMENT THE NEXT LINE OF CODE
+	;else						;IF 'INPUT' SWITCH IS NOT SET TO 'STORED FILE' THEN IMPLEMENT THE NEXT LINE OF CODE
 		ain, aignore	ins			;READ AUDIO FROM THE COMPUTER'S LIVE INPUT (LEFT INPUT ONLY IS READ, RIGHT CHANNEL IS IGNORED IN SUBSEQUENT CODE. A STEREO VERSION COULD EASILY BE BUILT BUT THIS WOULD DOUBLE CPU DEMANDS!)
-	endif						;END OF 'IF'...'THEN' BRANCHING
+	;endif						;END OF 'IF'...'THEN' BRANCHING
 	
 	;OUTPUT		OPCODE	INPUT |   BPM      | SUBDIVISION | BAR_LENGTH | PHRASE_LENGTH | NUM.OF_REPEATS | STUTTER_SPEED | STUTTER_CHANCE	
 	abbcutL		bbcutm	ain,   i(gkBPM)/60, i(gksubdiv),  i(gkbarlen),   i(gkphrase),    i(gkrepeats),   i(gkstutspd),   i(gkstutchnc)
@@ -194,7 +194,7 @@ endin
 
 instr 100
   outs gasigL, gasigR
-  fout "onlyChaos-1.wav", 4, gasigL/2, gasigR/2
+  fout "beat-1.wav", 4, gasigL/2, gasigR/2
   clear gasigL
   clear gasigR
 endin
@@ -204,8 +204,9 @@ endin
 
 <CsScore>
 ;FUNCTION_TABLE_NUMBER | INIT_TIME | TABLE_SIZE | GEN_ROUTINE |  FILE_PATH  | INSKIP | FORMAT | CHANNEL 
-f          1                 0         524289         -1        "onlyChaos.wav"       0       4         1
+f          1                 0         162831         -1        "beat.wav"       0       4         1
 f 0 3600	;DUMMY SCORE EVENT ALLOWS REAL-TIME PERFORMANCE FOR 1 HOUR
+i1 0 -1
 i100 0 -1
 </CsScore>
 
