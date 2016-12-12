@@ -1,0 +1,15 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=
+Name=CsoundSave
+Comment=
+GenericName=
+Keywords=
+Exec=/usr/local/bin/run_csound.sh %f -otest.wav
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=
+Categories=
+StartupNotify=
+Actions=

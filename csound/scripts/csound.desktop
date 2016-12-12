@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=
+Name=Csound
+Comment=
+GenericName=
+Keywords=
+Exec=csound %f -dodac
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=
+Categories=
+StartupNotify=
+Actions=
