@@ -17,7 +17,7 @@ FLpanel_end
 FLrun
 
 ;FLsetVal_i ivalue, ihandle
- FLsetVal_i 1, ihvolume
+ FLsetVal_i 0.1, ihvolume
 
 instr 1
   awhiteL  unirand  2.0
