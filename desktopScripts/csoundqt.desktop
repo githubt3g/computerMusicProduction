@@ -1,0 +1,11 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Type=Application
+Name=untitled.csd - CsoundQt
+Icon=csoundqt.png
+Exec=csoundqt
+StartupNotify=false
+StartupWMClass=csoundqt
+OnlyShowIn=Unity;
+X-UnityGenerated=true

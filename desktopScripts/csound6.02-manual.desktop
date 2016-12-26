@@ -1,0 +1,15 @@
+[Desktop Entry]
+Version=6.02
+Name=CsoundManual
+Comment=Csound 6.02 Manual
+GenericName=Manual
+Keywords=Manual
+Exec=firefox /home/tom/csoundManual6.02/html/index.html
+Terminal=false
+X-MultipleArgs=false
+Type=Application
+Icon=/home/tom/Pictures/blueC.png
+Categories=
+StartupNotify=
+Actions=
+
