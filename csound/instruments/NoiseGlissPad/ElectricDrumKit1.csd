@@ -1,4 +1,9 @@
+#! /usr/bin/csound
 <CsoundSynthesizer>
+<CsOptions>
+-d
+-odac
+</CsOptions>
 <CsInstruments>
 sr = 44100
 kr = 441
