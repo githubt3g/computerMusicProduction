@@ -57,5 +57,6 @@ i99 0 5200
 ;  for j in range(24):
 ;    for m in melody2:
 ;      print 'i1 '+str(m[0]+12*j+i*148)+'\t'+str(m[1])+'\t'+str(m[2])+'\t'+str(0.85**j)+'\t'+str(m[3])
-;      print 'i1 '+str(m[0]+12*j+i*148-0.1)+'\t'+str(m[1])+'\t'+str(m[2]+0.2)+'\t'+str(0.85**j)+'\t'+str(m[3])</CsScore>
+;      print 'i1 '+str(m[0]+12*j+i*148-0.1)+'\t'+str(m[1])+'\t'+str(m[2]+0.2)+'\t'+str(0.85**j)+'\t'+str(m[3])
+</CsScore>
 </CsoundSynthesizer>
