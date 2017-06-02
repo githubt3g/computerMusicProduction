@@ -66,7 +66,7 @@ else
    asigL = 0
    asigR = 0
 endif
-        outs asigL, asigR
+        outs 0.33*asigL, 0.33*asigR
 
 endin
 
@@ -78,15 +78,17 @@ instr wobbleBass
      iamp  =          p5                                     ; Amplitude
      ipch  =          cpsmidinn(p6)                             ; Pitch
 idivision  =          1 / (p7 * ispb)                        ; Division of Wobble
-       a1  vco2       iamp, ipch * 1.005,  0                 ; Oscillator
-       a2  vco2       iamp, ipch * 0.495, 10                 ; Oscillator
+;       a1  vco2       iamp, ipch * 1.005,  0                 ; Oscillator
+;       a2  vco2       iamp, ipch * 0.495, 10                 ; Oscillator
+       a1  oscil      iamp, ipch * 0.495, 3
+       a2  oscil      iamp, ipch * 0.245, 2
        a1  =          a1 + a2
    itable  ftgen      0, 0, 8192, -7, 0, 4096, 1, 4096, 0    ; Wobble envelope shape
      klfo  oscil      1, idivision, itable                   ; LFO for wobble sound
     ibase  =          ipch
      imod  =          ibase * 9
        a1  moogladder a1, ibase + imod * klfo, 0.6           ; Filter
-           out        0.33*a1
+           out        0.8*a1
 endin
 
 
@@ -113,6 +115,7 @@ hihat = 'i"playSampleHit" %f 0.25 13\n'
 f.write('''
 f1 0 4096 10 1
 f2 0 4096 7 -1 2048 1 2048 -1
+f3 0 2048 -23 "mySaw.table"
 f11 0 0 1 "./kit/kick.wav" 0 0 0
 f12 0 0 1 "./kit/snare.wav" 0 0 0
 f13 0 0 1 "./kit/chh.wav" 0 0 0
