@@ -4,7 +4,7 @@
 </CsOptions>
 <CsInstruments>
 sr = 44100
-ksmps = 32
+ksmps = 1
 nchnls = 1
 0dbfs  = 1
 
@@ -16,16 +16,19 @@ FLrun
 instr fmPercussion
  kA linseg 16, p3, 1
 kfm linseg 440, 0.05, 55, 0.45, 33
-kfc linseg 330, 0.05, 66, 0.45, 22
+kfm2 linseg 880, 0.05, 440, 0.45, 33
+kfc linseg 200, 0.05, 66, 0.45, 22
 kz oscil 1, kfm, 1
+kz2 oscil 1, kfm2, 1
 kmenv linseg 0, 0.03, 1, 0.45, 0
-ay oscil 1, kfc+kmenv*kA*kz, 1
-ay butterlp ay, 165 
+km2env linseg 0, 0.02, 1, 0.02, 0
+ay oscil 1, kfc+kmenv*kA*kz+km2env*kA*kz, 1
+;ay butterlp ay, 82.5 
 ;ay butterlp ay, 55 
 ;ay butterlp ay, 110 
 ;ay butterlp ay, 110 
 kcenv linseg 0, 0.03, 1 
-kcenv2 expseg 2, p3, 1 
+kcenv2 expseg 2, p3/2, 1.25, p3/2, 1 
    out   (kcenv2-1)*kcenv*ay 
 endin 
 
@@ -41,10 +44,10 @@ endin
 </CsInstruments>
 <CsScore>
 f1 0 1024 10 1
-
-{1 n
-i"fmPercussion" $n [60/128]
+#define r #4#
+{$r n
+i"fmPercussion" [$n*60/128] [60/128]
 }
-i999 0 0.5
+i999 0 [$r*60/128]
 </CsScore>
 </CsoundSynthesizer>
