@@ -4,14 +4,14 @@ from os import system
 import sys
 sys.stdout = open("./example.csd", "w") # redirect print to file
 import re
-t32='''bpm = 128  
+t32='''bpm = 140  
       r1    r2         d1  d2
 send 1.00  1.00  send 1.00 1.00
 time 5.00  5.00  fdbk 0.70 0.50
                                                            4-bar choices         8-bar choices       256-bar song
                bar                   bar                   -------------------   -----------------   -----------------------------------------   
                0                     1                     a    b    c    d      A  B  C  D  E  F   >                   <
-s01 kick       1... 1... 1... 1...   1... 1... 1... 1...   0001 0011 0100 0101   ab ac ad bc bd cd   ABCD ABCD ABCD ABCD   ABCD ABCD ABCD ABCD   1
+s01 kick       1... ..1. 1... ....   1... .1.1 1... ..1.   0001 0011 0100 0101   ab ac ad bc bd cd   ABCD ABCD ABCD ABCD   ABCD ABCD ABCD ABCD   1
 s02 snare      .... 1... .... 1...   .... 1... .... 6...   0001 0001 0001 0011   aa ad aa ad aa ad   ABCD ABCD ABCD ABCD   ABCD ABCD ABCD ABCD   0
 s03 clap       .... .... .... ....   .... .... .... ....   .... .... .... ....   .. .. .. .. .. ..   .... .... .... ....   .... .... .... ....   0
 s04 stick      .... .... .... ....   .... .... .... ....   .... .... .... ....   .. .. .. .. .. ..   .... .... .... ....   .... .... .... ....   0
