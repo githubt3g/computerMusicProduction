@@ -1,10 +1,6 @@
 <CsoundSynthesizer>
 <CsOptions>
-; Select audio/midi flags here according to platform
-; Audio out Audio in No messages
--odac -iadc -d ;;;RT audio I/O
-; For Non-realtime ouput leave only the line below:
-; -o spat3d_UHJ.wav -W ;;; for file output any platform
+-dodac
 </CsOptions>
 <CsInstruments>
 /* Written by Istvan Varga */
@@ -56,10 +52,8 @@ outs 0.33*aL, 0.33*aR
 endin
 </CsInstruments>
 <CsScore>
-
-/* Written by Istvan Varga */
-t 0 60
-i 1 0.0 3.75
+t0 60
+i1 0.0 [3*3.75]
 e
 </CsScore>
 </CsoundSynthesizer>
