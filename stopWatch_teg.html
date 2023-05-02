@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stopwatch</title>
+</head>
+<style>
+* {box-sizing: border-box;
+   outline: 0;
+   padding: 0;
+   margin: 0;}
+body {margin: 0;
+      padding: 0;
+      background: green;
+      font-family: "Poppins", sans-serif;
+      font-size: 1.8em;
+      line-height: 1.5em;}
+.container {max-width: 360px;
+            margin: 0px auto;
+            padding: 0px;
+            border-radius: 0px;}
+.watch {display: flex;
+        flex-direction: row;
+        justify-content: left;
+        align-items: center;
+        background: green;
+        height: 5rem;
+        border-radius: 0px;}
+h2 {font-size: 3em;
+    font-weight: 400;
+    height: 50px;
+    width: 335px;}
+h2.paused {color: red;}
+.buttons {display: flex;
+          flex-direction: row;
+          justify-content: center;
+          margin: 10px 0;}
+.buttons button {margin: 10px;
+                 margin-top: 20px;
+                 border: none;
+                 padding: 15px 30px;
+                 font-weight: bold;
+                 text-transform: uppercase;
+                 letter-spacing: 4px;
+                 border-radius: 5px;
+                 cursor: pointer;}
+</style>
+<body>
+    <section class="container">
+    <div class="watch"><h2 id="watch">00:00:00</h2></div>
+    <div class="buttons"><button id="start">Start</button>
+                         <button id="pause">Pause</button>
+                         <button id="reset">Reset</button></div>
+    </section>
+
+    <script>
+    const watch = document.querySelector('#watch');
+let milliseconds = 0;
+let timer;
+
+function startWatch() {watch.classList.remove('paused');
+                       clearInterval(timer);
+                       timer = setInterval(() => {milliseconds += 10;
+                                                  let dateTimer = new Date(milliseconds);
+                                                  watch.innerHTML = ('0' + dateTimer.getUTCHours()).slice(-2)   + ':' +
+                                                                    ('0' + dateTimer.getUTCMinutes()).slice(-2) + ':' +
+                                                                    ('0' + dateTimer.getUTCSeconds()).slice(-2);}, 10);}; 
+function pauseWatch() {watch.classList.add('paused');
+                       clearInterval(timer);};
+
+function resetWatch() {watch.classList.remove('paused');
+                       clearInterval(timer);
+                       milliseconds = 0;
+                       watch.innerHTML = '00:00:00';};
+
+document.addEventListener('click', (e) => {
+    const el = e.target;
+    if (el.id === 'start') startWatch();
+    if (el.id === 'pause') pauseWatch();
+    if (el.id === 'reset') resetWatch();
+});
+    </script>
+</body>
+
+</html>
