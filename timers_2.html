@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<body>
+<style>
+body {
+  font-size: 32px;
+  background-color: black;
+  font-weight: bold;
+  margin-top: 0px;}
+div {
+  background-color: black;
+  color: green;
+  font-size: 128px;
+}
+input{
+  width: 70px;
+  margin: 10px;
+  font-size: 32px;
+  margin-top: 0px;
+}
+</style>
+
+<audio id="beepAudio"></audio>
+<!--<div>-->
+    <input id="resetCounter1"    type="button" value="1" />
+    <input id="resetCounter2"    type="button" value="2" />
+    <input id="resetCounter3"    type="button" value="3" />
+    <input id="resetCounter4"    type="button" value="4" />
+    <input id="resetCounter5"    type="button" value="5" /></br>
+    <input id="resetCounter6"    type="button" value="6" />
+    <input id="resetCounter8"    type="button" value="8" />
+    <input id="resetCounter10"   type="button" value="10" />
+    <input id="resetCounter12"   type="button" value="12" />
+    <input id="resetCounter15"   type="button" value="15" /></br>
+    <input id="resetCounter20"   type="button" value="20" />
+    <input id="resetCounter24"   type="button" value="24" />
+    <input id="resetCounter40"   type="button" value="40" />
+    <input id="resetCounter60"   type="button" value="60" />
+    <input id="resetCounter120"  type="button" value="120" /></br>
+    <input id="startButton"      type="button" value="Start" />
+<!--</div>-->
+<div id="countdownDiv"></div>
+<script type="text/javascript">
+function pad(num, size) {num = num.toString();
+                         while (num.length < size) num = "0" + num;
+                         return num;}
+(function () {'use strict';
+              var count = 300, countdownTimer;    
+              function resetCounter(t) {if (countdownTimer) {window.clearInterval(countdownTimer);}
+                                       countdownTimer = null;
+                                       count = t;
+                                       document.getElementById("countdownDiv").innerText = Math.floor(count/60)+" : "+pad(count%60,2);
+                                       }
+              function startCountdown() {if (!countdownTimer) {countdownTimer = window.setInterval(function () {document.getElementById("countdownDiv").innerText = Math.floor(count/60)+" : "+pad(count%60,2);
+                                                                                                                count = count - 1;
+                                                                                                                if (count < 0) {resetCounter(0);  
+                                                                                                                                document.getElementById("beepAudio").loop=true;  
+                                                                                                                                document.getElementById("beepAudio").play();}
+                                                                                                               }, 1000);}}
+              function counter_60s() {resetCounter(60);}
+              function counter_2m() {resetCounter(120);}
+              function counter_3m() {resetCounter(180);}
+              function counter_4m() {resetCounter(240);}
+              function counter_5m() {resetCounter(300);}
+              function counter_6m() {resetCounter(360);}
+              function counter_8m() {resetCounter(480);}
+              function counter_10m() {resetCounter(600);}
+              function counter_12m() {resetCounter(720);}
+              function counter_15m() {resetCounter(900);}
+              function counter_20m() {resetCounter(1200);}
+              function counter_24m() {resetCounter(1440);}
+              function counter_40m() {resetCounter(2400);}
+              function counter_60m() {resetCounter(3600);}
+              function counter_120m() {resetCounter(7200);}
+              document.getElementById("beepAudio").src = "./Sonar-ping-sound.wav";
+              document.getElementById("beepAudio").load();    
+              document.getElementById("startButton").onclick   = startCountdown;
+              document.getElementById("resetCounter1").onclick = counter_60s;
+              document.getElementById("resetCounter2").onclick = counter_2m;
+              document.getElementById("resetCounter3").onclick = counter_3m;
+              document.getElementById("resetCounter4").onclick = counter_4m;
+              document.getElementById("resetCounter5").onclick = counter_5m;
+              document.getElementById("resetCounter6").onclick = counter_6m;
+              document.getElementById("resetCounter8").onclick = counter_8m;
+              document.getElementById("resetCounter10").onclick = counter_10m;
+              document.getElementById("resetCounter12").onclick = counter_12m;
+              document.getElementById("resetCounter15").onclick = counter_15m;
+              document.getElementById("resetCounter20").onclick = counter_20m;
+              document.getElementById("resetCounter24").onclick = counter_24m;
+              document.getElementById("resetCounter40").onclick = counter_40m;
+              document.getElementById("resetCounter60").onclick = counter_60m;
+              document.getElementById("resetCounter120").onclick = counter_120m;}());
+              var myDiv = document.getElementById("countdownDiv");
+              myDiv.innerHTML = "5 : 00"
+</script>
+</body>
+</html>
