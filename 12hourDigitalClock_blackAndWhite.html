@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- saved from url=(0078)file:///media/tom/4D86-56E4/backup_20200715_tom-551/tom/Public/html/clock.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<script>
+function startTime() {
+  var today = new Date();
+  var mid = 'pm';
+  var h = today.getHours();
+    if (h > 12) {
+      h = h - 12;
+    }    
+    if(h < 12) {
+       mid = 'am';
+    }  
+    if(h==0){ 
+      h=12;
+    }   
+  var m = today.getMinutes();
+  m = checkTime(m);
+  document.getElementById('txt').innerHTML =
+  h + ":" + m + "  " + mid;
+  var t = setTimeout(startTime, 500);
+function checkTime(i) {
+  if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+  return i;
+}
+}
+</script>
+</head>
+
+<body onload="startTime()" style="background-color:Black;zoom:500%">
+<center>
+<h1 style="color:White;"><div id="txt">12:38</div></h1>
+</center>
+
+
+</body></html>
